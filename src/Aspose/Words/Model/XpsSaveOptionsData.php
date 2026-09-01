@@ -52,6 +52,7 @@ class XpsSaveOptionsData extends FixedPageSaveOptionsData
      */
     protected static $swaggerTypes = [
         'bookmarks_outline_level' => 'int',
+        'compression_level' => 'string',
         'digital_signature_details' => '\Aspose\Words\Model\DigitalSignatureDetails',
         'headings_outline_levels' => 'int',
         'outline_options' => '\Aspose\Words\Model\OutlineOptionsData',
@@ -65,6 +66,7 @@ class XpsSaveOptionsData extends FixedPageSaveOptionsData
      */
     protected static $swaggerFormats = [
         'bookmarks_outline_level' => 'null',
+        'compression_level' => 'null',
         'digital_signature_details' => 'null',
         'headings_outline_levels' => 'null',
         'outline_options' => 'null',
@@ -99,6 +101,7 @@ class XpsSaveOptionsData extends FixedPageSaveOptionsData
      */
     protected static $attributeMap = [
         'bookmarks_outline_level' => 'BookmarksOutlineLevel',
+        'compression_level' => 'CompressionLevel',
         'digital_signature_details' => 'DigitalSignatureDetails',
         'headings_outline_levels' => 'HeadingsOutlineLevels',
         'outline_options' => 'OutlineOptions',
@@ -112,6 +115,7 @@ class XpsSaveOptionsData extends FixedPageSaveOptionsData
      */
     protected static $setters = [
         'bookmarks_outline_level' => 'setBookmarksOutlineLevel',
+        'compression_level' => 'setCompressionLevel',
         'digital_signature_details' => 'setDigitalSignatureDetails',
         'headings_outline_levels' => 'setHeadingsOutlineLevels',
         'outline_options' => 'setOutlineOptions',
@@ -125,6 +129,7 @@ class XpsSaveOptionsData extends FixedPageSaveOptionsData
      */
     protected static $getters = [
         'bookmarks_outline_level' => 'getBookmarksOutlineLevel',
+        'compression_level' => 'getCompressionLevel',
         'digital_signature_details' => 'getDigitalSignatureDetails',
         'headings_outline_levels' => 'getHeadingsOutlineLevels',
         'outline_options' => 'getOutlineOptions',
@@ -172,7 +177,25 @@ class XpsSaveOptionsData extends FixedPageSaveOptionsData
         return self::$swaggerModelName;
     }
 
+    const COMPRESSION_LEVEL_NORMAL = 'Normal';
+    const COMPRESSION_LEVEL_MAXIMUM = 'Maximum';
+    const COMPRESSION_LEVEL_FAST = 'Fast';
+    const COMPRESSION_LEVEL_SUPER_FAST = 'SuperFast';
 
+    /*
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getCompressionLevelAllowableValues()
+    {
+        return [
+            self::COMPRESSION_LEVEL_NORMAL,
+            self::COMPRESSION_LEVEL_MAXIMUM,
+            self::COMPRESSION_LEVEL_FAST,
+            self::COMPRESSION_LEVEL_SUPER_FAST
+        ];
+    }
 
     /*
      * Constructor
@@ -184,6 +207,7 @@ class XpsSaveOptionsData extends FixedPageSaveOptionsData
     {
         parent::__construct($data);
         $this->container['bookmarks_outline_level'] = isset($data['bookmarks_outline_level']) ? $data['bookmarks_outline_level'] : null;
+        $this->container['compression_level'] = isset($data['compression_level']) ? $data['compression_level'] : null;
         $this->container['digital_signature_details'] = isset($data['digital_signature_details']) ? $data['digital_signature_details'] : null;
         $this->container['headings_outline_levels'] = isset($data['headings_outline_levels']) ? $data['headings_outline_levels'] : null;
         $this->container['outline_options'] = isset($data['outline_options']) ? $data['outline_options'] : null;
@@ -197,6 +221,13 @@ class XpsSaveOptionsData extends FixedPageSaveOptionsData
     public function validate()
     {
         parent::validate();
+
+        if (isset($this->container['compression_level'])) {
+            $allowedValuesCompressionLevel = $this->getCompressionLevelAllowableValues();
+            if (!in_array($this->container['compression_level'], $allowedValuesCompressionLevel)) {
+                throw new \InvalidArgumentException('Property CompressionLevel in XpsSaveOptionsData has invalid format.');
+            }
+        }
 
 
         if (isset($this->container['digital_signature_details'])) {
@@ -230,6 +261,34 @@ class XpsSaveOptionsData extends FixedPageSaveOptionsData
     public function setBookmarksOutlineLevel($bookmarks_outline_level)
     {
         $this->container['bookmarks_outline_level'] = $bookmarks_outline_level;
+        return $this;
+    }
+
+
+    /*
+     * Gets compression_level
+     *
+     * @return string
+     */
+    public function getCompressionLevel()
+    {
+        return $this->container['compression_level'];
+    }
+
+    /*
+     * Sets compression_level
+     *
+     * @param string $compression_level Gets or sets a compression level used to save document. The default value is Normal.
+     *
+     * @return $this
+     */
+    public function setCompressionLevel($compression_level)
+    {
+        $allowedValues = $this->getCompressionLevelAllowableValues();
+        if ((!is_numeric($compression_level) && !in_array($compression_level, $allowedValues)) || (is_numeric($compression_level) && !in_array($allowedValues[$compression_level], $allowedValues))) {
+            throw new \InvalidArgumentException(sprintf("Invalid value for 'compression_level', must be one of '%s'", implode("', '", $allowedValues)));
+        }
+        $this->container['compression_level'] = $compression_level;
         return $this;
     }
 
