@@ -65,6 +65,7 @@ class PdfSaveOptionsData extends FixedPageSaveOptionsData
         'export_document_structure' => 'bool',
         'export_language_to_span_tag' => 'bool',
         'font_embedding_mode' => 'string',
+        'generate_form_field_scripts' => 'bool',
         'header_footer_bookmarks_export_mode' => 'string',
         'image_color_space_export_mode' => 'string',
         'image_compression' => 'string',
@@ -104,6 +105,7 @@ class PdfSaveOptionsData extends FixedPageSaveOptionsData
         'export_document_structure' => 'null',
         'export_language_to_span_tag' => 'null',
         'font_embedding_mode' => 'null',
+        'generate_form_field_scripts' => 'null',
         'header_footer_bookmarks_export_mode' => 'null',
         'image_color_space_export_mode' => 'null',
         'image_compression' => 'null',
@@ -164,6 +166,7 @@ class PdfSaveOptionsData extends FixedPageSaveOptionsData
         'export_document_structure' => 'ExportDocumentStructure',
         'export_language_to_span_tag' => 'ExportLanguageToSpanTag',
         'font_embedding_mode' => 'FontEmbeddingMode',
+        'generate_form_field_scripts' => 'GenerateFormFieldScripts',
         'header_footer_bookmarks_export_mode' => 'HeaderFooterBookmarksExportMode',
         'image_color_space_export_mode' => 'ImageColorSpaceExportMode',
         'image_compression' => 'ImageCompression',
@@ -203,6 +206,7 @@ class PdfSaveOptionsData extends FixedPageSaveOptionsData
         'export_document_structure' => 'setExportDocumentStructure',
         'export_language_to_span_tag' => 'setExportLanguageToSpanTag',
         'font_embedding_mode' => 'setFontEmbeddingMode',
+        'generate_form_field_scripts' => 'setGenerateFormFieldScripts',
         'header_footer_bookmarks_export_mode' => 'setHeaderFooterBookmarksExportMode',
         'image_color_space_export_mode' => 'setImageColorSpaceExportMode',
         'image_compression' => 'setImageCompression',
@@ -242,6 +246,7 @@ class PdfSaveOptionsData extends FixedPageSaveOptionsData
         'export_document_structure' => 'getExportDocumentStructure',
         'export_language_to_span_tag' => 'getExportLanguageToSpanTag',
         'font_embedding_mode' => 'getFontEmbeddingMode',
+        'generate_form_field_scripts' => 'getGenerateFormFieldScripts',
         'header_footer_bookmarks_export_mode' => 'getHeaderFooterBookmarksExportMode',
         'image_color_space_export_mode' => 'getImageColorSpaceExportMode',
         'image_compression' => 'getImageCompression',
@@ -499,6 +504,7 @@ class PdfSaveOptionsData extends FixedPageSaveOptionsData
         $this->container['export_document_structure'] = isset($data['export_document_structure']) ? $data['export_document_structure'] : null;
         $this->container['export_language_to_span_tag'] = isset($data['export_language_to_span_tag']) ? $data['export_language_to_span_tag'] : null;
         $this->container['font_embedding_mode'] = isset($data['font_embedding_mode']) ? $data['font_embedding_mode'] : null;
+        $this->container['generate_form_field_scripts'] = isset($data['generate_form_field_scripts']) ? $data['generate_form_field_scripts'] : null;
         $this->container['header_footer_bookmarks_export_mode'] = isset($data['header_footer_bookmarks_export_mode']) ? $data['header_footer_bookmarks_export_mode'] : null;
         $this->container['image_color_space_export_mode'] = isset($data['image_color_space_export_mode']) ? $data['image_color_space_export_mode'] : null;
         $this->container['image_compression'] = isset($data['image_compression']) ? $data['image_compression'] : null;
@@ -959,6 +965,30 @@ class PdfSaveOptionsData extends FixedPageSaveOptionsData
             throw new \InvalidArgumentException(sprintf("Invalid value for 'font_embedding_mode', must be one of '%s'", implode("', '", $allowedValues)));
         }
         $this->container['font_embedding_mode'] = $font_embedding_mode;
+        return $this;
+    }
+
+
+    /*
+     * Gets generate_form_field_scripts
+     *
+     * @return bool
+     */
+    public function getGenerateFormFieldScripts()
+    {
+        return $this->container['generate_form_field_scripts'];
+    }
+
+    /*
+     * Sets generate_form_field_scripts
+     *
+     * @param bool $generate_form_field_scripts Gets or sets a value determining  whether to generate scripts that emulate specific Microsoft Word form field behavior in PDF. Default is false. When this option is enabled, the exporter generates PDF JavaScript actions to emulate Microsoft Word form field behavior, such as date and time form fields with formatting and validation rules.When set to true, supported behavior will be exported as PDF JavaScript actions. When set to false, no form field scripts will be generated.Script execution depends on the PDF viewer. Some PDF viewers might ignore scripts, restrict script execution, or require the user to enable JavaScript.JavaScript actions are prohibited by PDF/A-1, PDF/A-2 and PDF/A-3 compliance. The false value will be used automatically in this case.
+     *
+     * @return $this
+     */
+    public function setGenerateFormFieldScripts($generate_form_field_scripts)
+    {
+        $this->container['generate_form_field_scripts'] = $generate_form_field_scripts;
         return $this;
     }
 

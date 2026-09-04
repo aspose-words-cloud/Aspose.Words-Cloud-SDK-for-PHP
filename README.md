@@ -16,6 +16,7 @@ This repository contains Aspose.Words Cloud SDK for PHP source code. This SDK al
 ## Enhancements in Version 26.9
 
 - Added 'CompressionLevel' property for XpsSaveOptionsData class.
+- Added 'GenerateFormFieldScripts' property for PdfSaveOptionsData class.
 
 
 ## Enhancements in Version 26.6
