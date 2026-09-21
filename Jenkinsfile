@@ -35,9 +35,9 @@ def runtests(dockerImageVersion)
             }
             
             if (needToBuild) {
-                def testImage = docker.build("asposewordsphp:${dockerImageVersion}", "./docker/${dockerImageVersion}")
+                def testImage = docker.build("asposewordsphp:${dockerImageVersion}", "--pull ./docker/${dockerImageVersion}")
                 
-                testImage.inside {
+                testImage.inside("--entrypoint=''") {
                     stage('build'){
                         if (params.packageTesting) {
                             sh "rm -rf src"
@@ -69,6 +69,6 @@ def runtests(dockerImageVersion)
     }
 }
 
-node('new-linux') {
+node('words-linux') {
     runtests("latest")
 }
