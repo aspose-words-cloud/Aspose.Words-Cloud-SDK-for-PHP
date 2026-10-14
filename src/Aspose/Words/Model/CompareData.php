@@ -52,6 +52,7 @@ class CompareData implements ArrayAccess
      * @var string[]
      */
     protected static $swaggerTypes = [
+        'advanced_options' => '\Aspose\Words\Model\AdvancedCompareOptions',
         'author' => 'string',
         'compare_options' => '\Aspose\Words\Model\CompareOptions',
         'comparing_with_document' => 'string',
@@ -66,6 +67,7 @@ class CompareData implements ArrayAccess
      * @var string[]
      */
     protected static $swaggerFormats = [
+        'advanced_options' => 'null',
         'author' => 'null',
         'compare_options' => 'null',
         'comparing_with_document' => 'null',
@@ -101,6 +103,7 @@ class CompareData implements ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
+        'advanced_options' => 'AdvancedOptions',
         'author' => 'Author',
         'compare_options' => 'CompareOptions',
         'comparing_with_document' => 'ComparingWithDocument',
@@ -115,6 +118,7 @@ class CompareData implements ArrayAccess
      * @var string[]
      */
     protected static $setters = [
+        'advanced_options' => 'setAdvancedOptions',
         'author' => 'setAuthor',
         'compare_options' => 'setCompareOptions',
         'comparing_with_document' => 'setComparingWithDocument',
@@ -129,6 +133,7 @@ class CompareData implements ArrayAccess
      * @var string[]
      */
     protected static $getters = [
+        'advanced_options' => 'getAdvancedOptions',
         'author' => 'getAuthor',
         'compare_options' => 'getCompareOptions',
         'comparing_with_document' => 'getComparingWithDocument',
@@ -195,6 +200,7 @@ class CompareData implements ArrayAccess
      */
     public function __construct(array $data = null)
     {
+        $this->container['advanced_options'] = isset($data['advanced_options']) ? $data['advanced_options'] : null;
         $this->container['author'] = isset($data['author']) ? $data['author'] : null;
         $this->container['compare_options'] = isset($data['compare_options']) ? $data['compare_options'] : null;
         $this->container['comparing_with_document'] = isset($data['comparing_with_document']) ? $data['comparing_with_document'] : null;
@@ -208,6 +214,11 @@ class CompareData implements ArrayAccess
      */
     public function validate()
     {
+
+        if (isset($this->container['advanced_options'])) {
+            $this->getAdvancedOptions()->validate();
+        }
+
         if (!isset($this->container['author'])) {
             throw new \InvalidArgumentException('Property Author in CompareData is required.');
         }
@@ -226,6 +237,30 @@ class CompareData implements ArrayAccess
         }
 
     }
+
+    /*
+     * Gets advanced_options
+     *
+     * @return \Aspose\Words\Model\AdvancedCompareOptions
+     */
+    public function getAdvancedOptions()
+    {
+        return $this->container['advanced_options'];
+    }
+
+    /*
+     * Sets advanced_options
+     *
+     * @param \Aspose\Words\Model\AdvancedCompareOptions $advanced_options Gets or sets advanced compare options that might help to produce more precise comparison output.
+     *
+     * @return $this
+     */
+    public function setAdvancedOptions($advanced_options)
+    {
+        $this->container['advanced_options'] = $advanced_options;
+        return $this;
+    }
+
 
     /*
      * Gets author
