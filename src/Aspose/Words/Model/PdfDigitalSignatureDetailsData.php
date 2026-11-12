@@ -177,6 +177,7 @@ class PdfDigitalSignatureDetailsData implements ArrayAccess
     const HASH_ALGORITHM_SHA384 = 'Sha384';
     const HASH_ALGORITHM_SHA512 = 'Sha512';
     const HASH_ALGORITHM_RIPE_M_D160 = 'RipeMD160';
+    const HASH_ALGORITHM_AUTO = 'Auto';
 
     /*
      * Gets allowable values of the enum
@@ -189,7 +190,8 @@ class PdfDigitalSignatureDetailsData implements ArrayAccess
             self::HASH_ALGORITHM_SHA256,
             self::HASH_ALGORITHM_SHA384,
             self::HASH_ALGORITHM_SHA512,
-            self::HASH_ALGORITHM_RIPE_M_D160
+            self::HASH_ALGORITHM_RIPE_M_D160,
+            self::HASH_ALGORITHM_AUTO
         ];
     }
 
