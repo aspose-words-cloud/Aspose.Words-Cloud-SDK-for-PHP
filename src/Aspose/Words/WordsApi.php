@@ -70,7 +70,7 @@ class WordsApi implements Encryptor
      * @param string   $clientSecret client secret
      * @param string   $baseUrl base url for requests
      */
-    public function __construct(string $clientId, string $clientSecret, string $baseUrl = null)
+    public function __construct(string $clientId, string $clientSecret, ?string $baseUrl = null)
     {
         if (!isset($clientId) || trim($clientId) === '') {
             throw new ApiException('clientId could not be an empty string.');

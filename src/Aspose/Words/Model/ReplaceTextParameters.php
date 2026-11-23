@@ -193,7 +193,7 @@ class ReplaceTextParameters implements ArrayAccess
      * @param mixed[] $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(array $data = null)
+    public function __construct(?array $data = null)
     {
         $this->container['apply_superscript'] = isset($data['apply_superscript']) ? $data['apply_superscript'] : null;
         $this->container['is_match_case'] = isset($data['is_match_case']) ? $data['is_match_case'] : null;

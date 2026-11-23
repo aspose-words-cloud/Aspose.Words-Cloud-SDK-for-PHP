@@ -198,7 +198,7 @@ class CompareData implements ArrayAccess
      * @param mixed[] $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(array $data = null)
+    public function __construct(?array $data = null)
     {
         $this->container['advanced_options'] = isset($data['advanced_options']) ? $data['advanced_options'] : null;
         $this->container['author'] = isset($data['author']) ? $data['author'] : null;

@@ -178,7 +178,7 @@ class AdvancedCompareOptions implements ArrayAccess
      * @param mixed[] $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(array $data = null)
+    public function __construct(?array $data = null)
     {
         $this->container['compare_list_definitions'] = isset($data['compare_list_definitions']) ? $data['compare_list_definitions'] : null;
         $this->container['ignore_dml_unique_id'] = isset($data['ignore_dml_unique_id']) ? $data['ignore_dml_unique_id'] : null;

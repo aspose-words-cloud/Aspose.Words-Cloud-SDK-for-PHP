@@ -160,7 +160,7 @@ class DoclingSaveOptionsData extends SaveOptionsData
      * @param mixed[] $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(array $data = null)
+    public function __construct(?array $data = null)
     {
         parent::__construct($data);
         $this->container['render_non_image_shapes'] = isset($data['render_non_image_shapes']) ? $data['render_non_image_shapes'] : null;
