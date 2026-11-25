@@ -29,8 +29,8 @@
 namespace Aspose\Words\Tests;
 
 use Aspose\Words\WordsApi;
-use Aspose\Words\Model\Requests\{DeleteDrawingObjectOnlineRequest, DeleteDrawingObjectRequest, GetDocumentDrawingObjectByIndexOnlineRequest, GetDocumentDrawingObjectByIndexRequest, GetDocumentDrawingObjectImageDataOnlineRequest, GetDocumentDrawingObjectImageDataRequest, GetDocumentDrawingObjectOleDataOnlineRequest, GetDocumentDrawingObjectOleDataRequest, GetDocumentDrawingObjectsOnlineRequest, GetDocumentDrawingObjectsRequest, InsertDrawingObjectOnlineRequest, InsertDrawingObjectRequest, RenderDrawingObjectOnlineRequest, RenderDrawingObjectRequest, UpdateDrawingObjectOnlineRequest, UpdateDrawingObjectRequest};
-use Aspose\Words\Model\{DrawingObjectInsert, DrawingObjectUpdate};
+use Aspose\Words\Model\Requests\{DeleteDrawingObjectOnlineRequest, DeleteDrawingObjectRequest, GetDocumentDrawingObjectByIndexOnlineRequest, GetDocumentDrawingObjectByIndexRequest, GetDocumentDrawingObjectImageDataOnlineRequest, GetDocumentDrawingObjectImageDataRequest, GetDocumentDrawingObjectOleDataOnlineRequest, GetDocumentDrawingObjectOleDataRequest, GetDocumentDrawingObjectsOnlineRequest, GetDocumentDrawingObjectsRequest, InsertDrawingObjectByReferenceOnlineRequest, InsertDrawingObjectByReferenceRequest, InsertDrawingObjectOnlineRequest, InsertDrawingObjectRequest, RenderDrawingObjectOnlineRequest, RenderDrawingObjectRequest, UpdateDrawingObjectOnlineRequest, UpdateDrawingObjectRequest};
+use Aspose\Words\Model\{DrawingObjectInsert, DrawingObjectInsertData, DrawingObjectUpdate, FileReference};
 use PHPUnit\Framework\Assert;
 
 /*
@@ -576,6 +576,92 @@ class DrawingObjectsTests extends BaseTestContext
 
         $result = $this->words->insertDrawingObject($request);
         Assert::assertTrue(json_decode($result, true) !== NULL);
+    }
+
+    /*
+     * Test for adding drawing object with the image from the storage.
+     */
+    public function testInsertDrawingObjectByReference()
+    {
+        $remoteDataFolder = self::$baseRemoteFolderPath . "/DocumentElements/DrawingObjectss";
+        $localFile = "Common/test_multi_pages.docx";
+        $remoteFileName = "TestInsertDrawingObjectByReference.docx";
+        $remoteImagePath = $remoteDataFolder . "/TestInsertDrawingObjectByReference.png";
+
+        $this->uploadFile(
+            realpath(__DIR__ . '/../../..') . "/TestData/" . $localFile,
+            $remoteDataFolder . "/" . $remoteFileName
+        );
+        $this->uploadFile(
+            realpath(__DIR__ . '/../../..') . "/TestData/" . "Common/aspose-cloud.png",
+            $remoteImagePath
+        );
+
+        $requestDrawingObjectImageReference = FileReference::fromRemoteFilePath($remoteImagePath);
+        $requestDrawingObject = new DrawingObjectInsertData(array(
+            "height" => 0,
+            "left" => 0,
+            "top" => 0,
+            "width" => 0,
+            "relative_horizontal_position" => "Margin",
+            "relative_vertical_position" => "Margin",
+            "wrap_type" => "Inline",
+            "image_reference" => $requestDrawingObjectImageReference,
+        ));
+        $request = new InsertDrawingObjectByReferenceRequest(
+            $remoteFileName,
+            $requestDrawingObject,
+            "",
+            $remoteDataFolder,
+            NULL,
+            NULL,
+            NULL,
+            NULL,
+            NULL,
+            NULL,
+            NULL,
+            NULL
+        );
+
+        $result = $this->words->insertDrawingObjectByReference($request);
+        Assert::assertTrue(json_decode($result, true) !== NULL);
+    }
+
+    /*
+     * Test for adding drawing object online with the image from the request.
+     */
+    public function testInsertDrawingObjectByReferenceOnline()
+    {
+        $localFile = "Common/test_multi_pages.docx";
+
+        $requestDocument = realpath(__DIR__ . '/../../..') . '/TestData/' . $localFile;
+        $requestDrawingObjectImageReferenceStream = realpath(__DIR__ . '/../../..') . '/TestData/' . "Common/aspose-cloud.png";
+        $requestDrawingObjectImageReference = FileReference::fromLocalFileContent($requestDrawingObjectImageReferenceStream);
+        $requestDrawingObject = new DrawingObjectInsertData(array(
+            "height" => 0,
+            "left" => 0,
+            "top" => 0,
+            "width" => 0,
+            "relative_horizontal_position" => "Margin",
+            "relative_vertical_position" => "Margin",
+            "wrap_type" => "Inline",
+            "image_reference" => $requestDrawingObjectImageReference,
+        ));
+        $request = new InsertDrawingObjectByReferenceOnlineRequest(
+            $requestDocument,
+            $requestDrawingObject,
+            "",
+            NULL,
+            NULL,
+            NULL,
+            NULL,
+            NULL,
+            NULL,
+            NULL
+        );
+
+        $result = $this->words->insertDrawingObjectByReferenceOnline($request);
+        Assert::assertTrue($result !== NULL);
     }
 
     /*

@@ -36426,6 +36426,343 @@ class WordsApi implements Encryptor
     }
 
     /*
+     * Operation insertDrawingObjectByReference
+     *
+     * Inserts a new DrawingObject to the document node. The image is passed by reference:
+     * a storage path in the document folder or its subfolders, an HTTP(S) URL, or a request part.
+     *
+     * @param Requests\insertDrawingObjectByReferenceRequest $request is a request object for operation
+     *
+     * @throws \Aspose\Words\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \Aspose\Words\Model\DrawingObjectResponse
+     */
+    public function insertDrawingObjectByReference(Requests\insertDrawingObjectByReferenceRequest $request)
+    {
+        try {
+            list($response) = $this->insertDrawingObjectByReferenceWithHttpInfo($request);
+            return $response;
+        }
+        catch(RepeatRequestException $e) {
+     		try {
+            	list($response) = $this->insertDrawingObjectByReferenceWithHttpInfo($request);
+            	return $response;
+        	}
+        	catch(RepeatRequestException $e) {
+            	throw new ApiException('Authorization failed', $e->getCode(), null, null);
+        	} 
+        } 
+    }
+
+    /*
+     * Operation insertDrawingObjectByReferenceWithHttpInfo
+     *
+     * Inserts a new DrawingObject to the document node. The image is passed by reference:
+     * a storage path in the document folder or its subfolders, an HTTP(S) URL, or a request part.
+     *
+     * @param Requests\insertDrawingObjectByReferenceRequest $request is a request object for operation
+     *
+     * @throws \Aspose\Words\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \Aspose\Words\Model\DrawingObjectResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    private function insertDrawingObjectByReferenceWithHttpInfo(Requests\insertDrawingObjectByReferenceRequest $request)
+    {
+        $returnType = '\Aspose\Words\Model\DrawingObjectResponse';
+        $this->_checkAuthToken();
+        $req = $request->createRequest($this->config);
+
+        try {
+            $options = $this->_createHttpClientOption();
+            try {
+                $response = $this->client->send($req, $options);
+            } catch (RequestException $e) {
+                if ($e->getCode() == 401) {
+                    $this->_requestToken();
+                    throw new RepeatRequestException("Request must be retried", 401, null, null);
+                }
+                else if ($e->getCode() < 200 || $e->getCode() > 299) {
+                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $e->getCode(), $req->getUri()), $e->getCode(), null, null);
+                }
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $req->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
+            }
+
+            $responseBody = $response->getBody();
+            if ($returnType === '\SplFileObject' || $returnType === 'FILES_COLLECTION') {
+                $content = $responseBody; //stream goes to serializer
+            } else {
+                $content = $responseBody->getContents();
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            if ($this->config->getDebug()) {
+                $this->_writeResponseLog($statusCode, $response->getHeaders(), ObjectSerializer::deserialize($content, $returnType, $response->getHeaders()));
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, $response->getHeaders()),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            case 200:
+                    $data = ObjectSerializer::deserialize($e->getResponseBody(), '\Aspose\Words\Model\DrawingObjectResponse', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                break;
+            }
+            throw $e;
+        }
+    }
+
+    /*
+     * Operation insertDrawingObjectByReferenceAsync
+     *
+     * Inserts a new DrawingObject to the document node. The image is passed by reference:
+     * a storage path in the document folder or its subfolders, an HTTP(S) URL, or a request part.
+     *
+     * @param Requests\insertDrawingObjectByReferenceRequest $request is a request object for operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function insertDrawingObjectByReferenceAsync(Requests\insertDrawingObjectByReferenceRequest $request) 
+    {
+        return $this->insertDrawingObjectByReferenceAsyncWithHttpInfo($request)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /*
+     * Operation insertDrawingObjectByReferenceAsyncWithHttpInfo
+     *
+     * Inserts a new DrawingObject to the document node. The image is passed by reference:
+     * a storage path in the document folder or its subfolders, an HTTP(S) URL, or a request part.
+     *
+     * @param Requests\insertDrawingObjectByReferenceRequest $request is a request object for operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    private function insertDrawingObjectByReferenceAsyncWithHttpInfo(Requests\insertDrawingObjectByReferenceRequest $request) 
+    {
+        $returnType = '\Aspose\Words\Model\DrawingObjectResponse';
+        $requestModel = $request;
+        $request = $request->createRequest($this->config);
+
+        return $this->client
+            ->sendAsync($request, $this->_createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType, $requestModel) {
+                    $responseBody = $response->getBody();
+                    if ($returnType === '\SplFileObject' || $returnType === 'FILES_COLLECTION') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    if ($this->config->getDebug()) {
+                        $this->_writeResponseLog($response->getStatusCode(), $response->getHeaders(), ObjectSerializer::deserialize($content, $returnType, $response->getHeaders()));
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, $response->getHeaders()),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {        
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+
+                    if ($exception instanceof RepeatRequestException) {
+                        $this->_requestToken();
+                        throw new RepeatRequestException("Request must be retried", 401, null, null);
+                    }
+
+                    throw new ApiException(
+                        sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /*
+     * Operation insertDrawingObjectByReferenceOnline
+     *
+     * Inserts a new DrawingObject to the document node. The image is passed by reference:
+     * a storage path in the document folder or its subfolders, an HTTP(S) URL, or a request part.
+     *
+     * @param Requests\insertDrawingObjectByReferenceOnlineRequest $request is a request object for operation
+     *
+     * @throws \Aspose\Words\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return InsertDrawingObjectByReferenceOnlineResponse
+     */
+    public function insertDrawingObjectByReferenceOnline(Requests\insertDrawingObjectByReferenceOnlineRequest $request)
+    {
+        try {
+            list($response) = $this->insertDrawingObjectByReferenceOnlineWithHttpInfo($request);
+            return $response;
+        }
+        catch(RepeatRequestException $e) {
+     		try {
+            	list($response) = $this->insertDrawingObjectByReferenceOnlineWithHttpInfo($request);
+            	return $response;
+        	}
+        	catch(RepeatRequestException $e) {
+            	throw new ApiException('Authorization failed', $e->getCode(), null, null);
+        	} 
+        } 
+    }
+
+    /*
+     * Operation insertDrawingObjectByReferenceOnlineWithHttpInfo
+     *
+     * Inserts a new DrawingObject to the document node. The image is passed by reference:
+     * a storage path in the document folder or its subfolders, an HTTP(S) URL, or a request part.
+     *
+     * @param Requests\insertDrawingObjectByReferenceOnlineRequest $request is a request object for operation
+     *
+     * @throws \Aspose\Words\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of InsertDrawingObjectByReferenceOnlineResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    private function insertDrawingObjectByReferenceOnlineWithHttpInfo(Requests\insertDrawingObjectByReferenceOnlineRequest $request)
+    {
+        $returnType = 'InsertDrawingObjectByReferenceOnlineResponse';
+        $this->_checkAuthToken();
+        $req = $request->createRequest($this->config);
+
+        try {
+            $options = $this->_createHttpClientOption();
+            try {
+                $response = $this->client->send($req, $options);
+            } catch (RequestException $e) {
+                if ($e->getCode() == 401) {
+                    $this->_requestToken();
+                    throw new RepeatRequestException("Request must be retried", 401, null, null);
+                }
+                else if ($e->getCode() < 200 || $e->getCode() > 299) {
+                    throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $e->getCode(), $req->getUri()), $e->getCode(), null, null);
+                }
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $req->getUri()), $statusCode, $response->getHeaders(), $response->getBody());
+            }
+
+            $resp = $request->deserializeResponse($response);
+            return [
+                    $resp,
+                    $response->getStatusCode(),
+                    $response->getHeaders()
+            ];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            case 200:
+                    $data = ObjectSerializer::deserialize($e->getResponseBody(), 'InsertDrawingObjectByReferenceOnlineResponse', $e->getResponseHeaders());
+                    $e->setResponseObject($data);
+                break;
+            }
+            throw $e;
+        }
+    }
+
+    /*
+     * Operation insertDrawingObjectByReferenceOnlineAsync
+     *
+     * Inserts a new DrawingObject to the document node. The image is passed by reference:
+     * a storage path in the document folder or its subfolders, an HTTP(S) URL, or a request part.
+     *
+     * @param Requests\insertDrawingObjectByReferenceOnlineRequest $request is a request object for operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function insertDrawingObjectByReferenceOnlineAsync(Requests\insertDrawingObjectByReferenceOnlineRequest $request) 
+    {
+        return $this->insertDrawingObjectByReferenceOnlineAsyncWithHttpInfo($request)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /*
+     * Operation insertDrawingObjectByReferenceOnlineAsyncWithHttpInfo
+     *
+     * Inserts a new DrawingObject to the document node. The image is passed by reference:
+     * a storage path in the document folder or its subfolders, an HTTP(S) URL, or a request part.
+     *
+     * @param Requests\insertDrawingObjectByReferenceOnlineRequest $request is a request object for operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    private function insertDrawingObjectByReferenceOnlineAsyncWithHttpInfo(Requests\insertDrawingObjectByReferenceOnlineRequest $request) 
+    {
+        $returnType = 'InsertDrawingObjectByReferenceOnlineResponse';
+        $requestModel = $request;
+        $request = $request->createRequest($this->config);
+
+        return $this->client
+            ->sendAsync($request, $this->_createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType, $requestModel) {
+                    $responseBody = $response->getBody();
+                    if ($returnType === '\SplFileObject' || $returnType === 'FILES_COLLECTION') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    if ($this->config->getDebug()) {
+                        $this->_writeResponseLog($response->getStatusCode(), $response->getHeaders(), ObjectSerializer::deserialize($content, $returnType, $response->getHeaders()));
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, $response->getHeaders()),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {        
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+
+                    if ($exception instanceof RepeatRequestException) {
+                        $this->_requestToken();
+                        throw new RepeatRequestException("Request must be retried", 401, null, null);
+                    }
+
+                    throw new ApiException(
+                        sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /*
      * Operation insertDrawingObjectOnline
      *
      * Inserts a new DrawingObject to the document node.

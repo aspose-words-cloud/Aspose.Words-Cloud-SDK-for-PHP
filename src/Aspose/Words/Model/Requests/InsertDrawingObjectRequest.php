@@ -514,6 +514,7 @@ class InsertDrawingObjectRequest extends BaseApiRequest
         // form params
         if ($this->drawing_object !== null) {
             array_push($formParams, ['name' => 'DrawingObject', 'content' => ObjectSerializer::toFormValue($this->drawing_object), 'mime' => 'application/json']);
+            $filesContent = $this->drawing_object->collectFilesContent($filesContent);
         }
         // form params
         if ($this->image_file !== null) {
